@@ -2,6 +2,13 @@
 
 This script retrieves and processes California Dashboard (CADASH) data for various subjects, such as ELA, Math, Chronic Absenteeism, Graduation Rates, and Suspensions. It filters the data based on specific criteria, sends the processed data to a SQL database, and logs the process details.
 
+As of 2022 files
+ELA has 19 schools
+Math has 19 schools
+Chronic Absenteeism has 9 schools
+Graduation has 11 schools
+Suspension has 19 schools
+
 ## Prerequisites
 - Python (3.x)
 - Pipenv
