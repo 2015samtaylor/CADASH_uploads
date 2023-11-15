@@ -1,0 +1,14 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "==1.5.3"
+pyodbc = "*"
+sqlalchemy = "==1.4.22"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

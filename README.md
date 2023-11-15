@@ -1,57 +1,38 @@
-"""
-Module: get_schools_mod
+# CADASH Data Processing
 
-This module provides a function for filtering a DataFrame based on a specified column containing California Department of Education (CDE) school codes. The filtering is done using a predefined dictionary of Green Dot school codes for our specific schools.
+This script retrieves and processes California Dashboard (CADASH) data for various subjects, such as ELA, Math, Chronic Absenteeism, Graduation Rates, and Suspensions. It filters the data based on specific criteria, sends the processed data to a SQL database, and logs the process details.
 
-Functions:
-    - full_cds_code(df, column, table):
-        Filters a DataFrame based on the values in a specified column containing CDE school codes.
-        
-        Parameters:
-            - df (DataFrame): The input DataFrame to be filtered.
-            - column (str): The name of the column containing CDE school codes.
-            - table (str): A string identifier for the table or dataset being filtered.
+## Prerequisites
+- Python (3.x)
+- Pipenv
 
-        Returns:
-            - DataFrame: A new DataFrame containing rows where the specified column's values match predefined school codes.
-            
-      
+Before running the script, install Pipenv using:
+```bash
+pip install pipenv
+```
+Create a virtual environment and install dependencies:
+```bash
+pipenv install
+```
+Activate the virtual environment:
+```bash
+pipenv shell
+```
 
-"""
-Module: send_to_sql_mod
+## Usage
+1. Run the script to fetch and process CADASH data for different subjects:
+   ```bash
+   python CADASH_upload.py
+   ```
 
-This module facilitates the transfer of data between a SQL Server database and a Pandas DataFrame. It provides functions for executing SQL queries and sending Pandas DataFrames to a SQL Server table.
+2. The processed data is sent to a SQL database with relevant table names (`CADash_ELA`, `CADash_Math`, etc.).
 
-Functions:
-    - SQL_query_90(query):
-        Executes a SQL query using an ODBC connection named 'GD_DW' and returns the result as a Pandas DataFrame.
+3. Check the log file (`CADASH_logging.log`) for detailed information about the process.
 
-        Parameters:
-            - query (str): The SQL query to be executed.
+Note: Locke College Preparatory Academy is excluded from the Chronic Absenteeism data.
 
-        Returns:
-            - DataFrame: Result of the SQL query as a Pandas DataFrame.
+## Logging
+A log file (`CADASH_logging.log`) is generated, providing a detailed history of the script's execution.
 
-    - get_dtypes(db, table_name):
-        Retrieves the data types of columns in a specified SQL Server table and returns a dictionary suitable for specifying dtypes in Pandas.
-
-        Parameters:
-            - db (str): The database name.
-            - table_name (str): The name of the SQL Server table.
-
-        Returns:
-            - dict: A dictionary containing column names and corresponding SQLAlchemy data types.
-
-    - send(frame, table, dtypes_):
-        Sends a Pandas DataFrame to a specified SQL Server table using SQLAlchemy. Logs success or failure.
-
-        Parameters:
-            - frame (DataFrame): The Pandas DataFrame to be sent.
-            - table (str): The name of the SQL Server table.
-            - dtypes_ (dict): Dictionary containing column names and corresponding SQLAlchemy data types.
-
-
-
-
-
-
+## Author
+- Sam Taylor
