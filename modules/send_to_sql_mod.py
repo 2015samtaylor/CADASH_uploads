@@ -12,14 +12,15 @@ def SQL_query_90(query):
     df_SQL = pd.read_sql_query(query, con = conn)
     return(df_SQL)
 
+# -----------------------------------------------------------------
 
-def get_dtypes(db , table_name):
+def get_dtypes(db , table_name_90):
 
     out = SQL_query_90('''
     SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH 
     FROM {}.information_schema.columns
     WHERE table_name = '{}'
-    '''.format(db, table_name))
+    '''.format(db, table_name_90))
 
     dtypes = {}
     
@@ -36,8 +37,14 @@ def get_dtypes(db , table_name):
             dtypes[column_name] = sqlalchemy.types.Float()
         elif data_type == 'datetime':
             dtypes[column_name] = sqlalchemy.types.DateTime()
-        
-    return(dtypes)
+        elif data_type == 'char':
+            dtypes[column_name] = sqlalchemy.types.CHAR(length=int(length))
+    
+    #add in the last_update column which is not present in tables on the 90
+    dtypes.update({'last_update': sqlalchemy.types.VARCHAR(length = 10)})
+    col_names = list(dtypes.keys())
+
+    return(dtypes, col_names)
 
 
 def send(frame, table, dtypes_):
@@ -50,7 +57,7 @@ def send(frame, table, dtypes_):
     engine = sqlalchemy.create_engine('mssql+pyodbc:///?odbc_connect={}'.format(quoted))
 
     try:
-        frame.to_sql(table, schema='dbo', con = engine, if_exists = 'replace', index = False, dtype = dtypes_)
+        frame.to_sql(table, schema='dbo', con = engine, if_exists = 'append', index = False, dtype = dtypes_)
         logging.info(f"Data written to {table} successfully.")
 
     except Exception as e:
