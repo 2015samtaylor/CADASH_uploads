@@ -1,5 +1,3 @@
-%load_ext autoreload
-%autoreload 2
 import logging
 logging.basicConfig(filename='CADASH_logging.log', level=logging.INFO,
                    format='%(asctime)s - %(message)s', datefmt='%d-%b-%y %H:%M:%S',force=True)

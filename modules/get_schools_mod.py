@@ -21,7 +21,7 @@ school_ids = {'CHA': '136119',
                 'FLO': '134023',
                 'WAT': '111625',
                 'JAM': '124008',
-                    'CMP': '137984'}
+                'CMP': '137984'}
 
 #if using this func, must use .str[7:] on the cds column
 def full_cds_code(df, column, table):
